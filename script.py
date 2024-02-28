@@ -13,7 +13,7 @@ from language import (
     ERROR_CSV_EXPORT,
     SUCCESS_MSG
 )
-from popup import show_error_popup, show_popup
+from popup import show_error_popup, show_popup, ask_for_filename
 from csv_creator import create_csv, save_csv
 
 
@@ -56,10 +56,12 @@ if __name__ == "__main__":
         
         try:
             csv_contents = create_csv(variables)
-            save_csv("export.csv", csv_contents)
-
+            filename = ask_for_filename()
             
-
+            if filename:
+                save_csv(filename, csv_contents)
+                show_popup(SUCCESS_MSG.format(filename=filename))
+        
         except Exception as e:
             if is_debug_mode:
                 raise e
