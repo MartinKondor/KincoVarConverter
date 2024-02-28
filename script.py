@@ -1,5 +1,6 @@
 from pathlib import Path
 from typing import List
+from sys import exit
 import os
 import sys
 
@@ -13,12 +14,13 @@ from language import (
     ERROR_CSV_EXPORT,
     SUCCESS_MSG
 )
-from popup import show_error_popup, show_popup, ask_for_filename
+from popup import show_error_popup, show_popup, ask_for_filename, ask_for_path
 from csv_creator import create_csv, save_csv
 
 
 if __name__ == "__main__":
     args = sys.argv
+    project_folder = None
     is_debug_mode = False
 
     if len(args) == 3:
@@ -28,10 +30,15 @@ if __name__ == "__main__":
             show_popup = print
 
     if len(args) < 2:
-        show_error_popup(ERROR_NO_DIRECTORY)
-        exit(1)
+        #show_error_popup(ERROR_NO_DIRECTORY)
+        #exit(1)
+        project_folder = ask_for_path()
+        if project_folder is None or project_folder == "":
+            exit(0)
+    else:
+        project_folder = args[1]
 
-    project_folder = Path(args[1])
+    project_folder = Path(project_folder)
     if not project_folder.is_dir():
         show_error_popup(ERROR_INVALID_DIRECTORY)
         exit(1)
