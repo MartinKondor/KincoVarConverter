@@ -24,6 +24,20 @@ SUCCESS_MSG_HU = "Sikeres exportálás!\n{filename}"
 CHOOSE_FOLDER_HU = "Válassza ki a Kinco-PLC projekt könyvtárát"
 SAVE_AS_EXPORT_HU = "A változókat tartalmazó fájl mentése"
 
+
+# GUI text
+GUI_CONVERT_EN = "Convert"
+GUI_CONVERT_HU = "Konvertálás"
+GUI_CONVERT = GUI_CONVERT_HU if is_hungarian else GUI_CONVERT_EN
+
+GUI_CHOOSE_EN = "Choose"
+GUI_CHOOSE_HU = "Kiválasztás"
+GUI_CHOOSE = GUI_CHOOSE_HU if is_hungarian else GUI_CHOOSE_EN
+
+GUI_TITLE_EN = "Kinco Var Converter"
+GUI_TITLE_HU = "Kinco Változó Konvertáló"
+GUI_TITLE = GUI_TITLE_HU if is_hungarian else GUI_TITLE_EN
+
 # Select error messages based on system language
 ERROR_NO_DIRECTORY = ERROR_NO_DIRECTORY_HU if is_hungarian else ERROR_NO_DIRECTORY_EN
 ERROR_INVALID_DIRECTORY = ERROR_INVALID_DIRECTORY_HU if is_hungarian else ERROR_INVALID_DIRECTORY_EN
