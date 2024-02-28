@@ -14,7 +14,7 @@ from language import (
     SUCCESS_MSG
 )
 from popup import show_error_popup, show_popup
-from csv_creator import create_csv
+from csv_creator import create_csv, save_csv
 
 
 if __name__ == "__main__":
@@ -53,12 +53,19 @@ if __name__ == "__main__":
     try: 
         content: str = read_vars_file(vars_file)
         variables: List[KincoVar] = parse_vars(content)
-        is_success = create_csv(variables)
         
-        if not is_success:
+        try:
+            csv_contents = create_csv(variables)
+            save_csv("export.csv", csv_contents)
+
+            
+
+        except Exception as e:
+            if is_debug_mode:
+                raise e
             show_error_popup(ERROR_CSV_EXPORT)
-        else:
-            show_popup(SUCCESS_MSG)
-    except:
+
+    except Exception as e:
+        if is_debug_mode:
+            raise e
         show_error_popup(ERROR_FILE_READING)
-        exit(1)

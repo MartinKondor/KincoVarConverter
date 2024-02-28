@@ -7,11 +7,9 @@ def read_vars_file(vars_file: str) -> str:
     """
     :returns: str with the file's contents
     """
-    file = open(vars_file, "r")
-    contents = file.read()
-    file.close()
+    with open(vars_file, "r") as file:
+        contents = file.read()
     return contents
-
 
 def parse_line(line: str) -> KincoVar:
     """
@@ -27,7 +25,7 @@ def parse_line(line: str) -> KincoVar:
     """
     parts = line.split(':')
 
-    name_address_part = parts[0].split('AT')
+    name_address_part = parts[0].split(' AT ')
     name = name_address_part[0].strip()
     address = name_address_part[1].strip()
 
@@ -54,6 +52,13 @@ def parse_vars(vars_content: str) -> List[KincoVar]:
             continue
 
         line = line.strip()
-        variables.append(parse_line(line))
+        if not line:
+            continue 
+
+        var = parse_line(line)
+        variables.append(var)
+        
+        # print(line)
+        # print(var)
 
     return variables
