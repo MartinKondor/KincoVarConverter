@@ -1,3 +1,3 @@
 @echo off
-pyinstaller script.spec
+pyinstaller gui.spec
 xcopy /s .\dist_src\* .\dist\script\

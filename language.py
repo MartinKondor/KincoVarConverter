@@ -38,6 +38,10 @@ GUI_TITLE_EN = "Kinco Var Converter"
 GUI_TITLE_HU = "Kinco Változó Konvertáló"
 GUI_TITLE = GUI_TITLE_HU if is_hungarian else GUI_TITLE_EN
 
+HELP_BTN_EN = "Help"
+HELP_BTN_HU = "Segítség"
+HELP_BTN = HELP_BTN_HU if is_hungarian else HELP_BTN_HU
+
 # Select error messages based on system language
 ERROR_NO_DIRECTORY = ERROR_NO_DIRECTORY_HU if is_hungarian else ERROR_NO_DIRECTORY_EN
 ERROR_INVALID_DIRECTORY = ERROR_INVALID_DIRECTORY_HU if is_hungarian else ERROR_INVALID_DIRECTORY_EN

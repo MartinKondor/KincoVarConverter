@@ -1,5 +1,6 @@
-import tkinter as tk
-#import customtkinter as tk  # https://medium.com/@fareedkhandev/modern-gui-using-tkinter-12da0b983e22
+import tkinter as ttk
+import customtkinter as tk  # https://medium.com/@fareedkhandev/modern-gui-using-tkinter-12da0b983e22
+
 from tkinter import filedialog, messagebox
 from pathlib import Path
 from typing import List
@@ -18,13 +19,14 @@ from language import (
     SAVE_AS_EXPORT,
     GUI_TITLE,
     GUI_CHOOSE,
-    GUI_CONVERT
+    GUI_CONVERT,
+    HELP_BTN
 )
 
 
 class KincoPLCExporterApp:
 
-    def __init__(self, root: tk.Tk):
+    def __init__(self, root: tk.CTk):
         self.root = root
         self.root.title(GUI_TITLE)
 
@@ -32,17 +34,28 @@ class KincoPLCExporterApp:
         self.root.eval('tk::PlaceWindow . center')
         self.root.protocol('WM_DELETE_WINDOW', self.on_closing)
         self.root.bind('<Key>', self.keypress)
+        self.root.after(201, lambda: self.root.iconbitmap('icon.ico')) 
 
-        self.project_folder_label = tk.Label(root, text=CHOOSE_FOLDER)
+        FG_COLOR = "#f15b28"
+        HOVER_COLOR = "#c74a20"
+        default_font = tk.CTkFont(family="Arial", weight="bold")
+        btn_base = {
+            "fg_color": FG_COLOR,
+            "hover_color": HOVER_COLOR,
+            "text_color": "black",
+            "font": default_font
+        }
+
+        self.project_folder_label = tk.CTkLabel(root, text=CHOOSE_FOLDER, font=default_font)
         self.project_folder_label.grid(row=0, column=1, padx=5, pady=5)
 
-        self.project_folder_entry = tk.Entry(root, width=100)
+        self.project_folder_entry = tk.CTkEntry(root, width=400)
         self.project_folder_entry.grid(row=1, column=1, padx=5, pady=5)
 
-        self.browse_button = tk.Button(root, text=GUI_CHOOSE, command=self.browse_project_folder)
+        self.browse_button = tk.CTkButton(root, text=GUI_CHOOSE, command=self.browse_project_folder, **btn_base)
         self.browse_button.grid(row=1, column=2, padx=5, pady=5)
 
-        self.export_button = tk.Button(root, text=GUI_CONVERT, command=self.export_variables)
+        self.export_button = tk.CTkButton(root, text=GUI_CONVERT, command=self.export_variables, **btn_base)
         self.export_button.grid(row=2, column=0, columnspan=3, padx=5, pady=5)
 
     def browse_project_folder(self):
@@ -81,7 +94,14 @@ class KincoPLCExporterApp:
 
             try:
                 csv_contents = create_csv(variables)
-                filename = filedialog.asksaveasfilename(title=SAVE_AS_EXPORT, defaultextension=".csv", filetypes=[("CSV Files", "*.csv")])
+                filename = filedialog.asksaveasfilename(
+                    title=SAVE_AS_EXPORT,
+                    defaultextension=".csv",
+                    filetypes=[
+                        ("CSV Files", "*.csv")
+                    ]
+                )
+
                 if filename:
                     save_csv(filename, csv_contents)
                     messagebox.showinfo("Success", SUCCESS_MSG.format(filename=filename))
@@ -103,7 +123,8 @@ class KincoPLCExporterApp:
 
 
 def main():
-    root = tk.Tk()
+    tk.set_appearance_mode("dark")
+    root = tk.CTk()
     app = KincoPLCExporterApp(root)
     root.mainloop()
 
