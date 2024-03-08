@@ -1,4 +1,8 @@
-# KincoVar Parser
+<p align="center">
+  <img src="docs/Képernyőkép 2024-03-08 150403.png" height=140>
+</p>
+
+# Kinco Var Parser
 
 This Python script parses KincoVar definitions from a file and extracts the variables into a list of `KincoVar` objects.
 
